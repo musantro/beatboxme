@@ -40,6 +40,7 @@ body {
   border-color: var(--pushed);
   box-shadow: 0 0 10px var(--pushed), inset 0 0 7px var(--pushed);
   text-shadow: 0 0 3px var(--pushed);
+  background-color: #090900
 }
 
 .strong{
