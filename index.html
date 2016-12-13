@@ -21,6 +21,10 @@
     <div class="row drumkit">
       <div class="col-xs-12 block">
         <h1 class="text-center">Beatbox Me</h1>
+        <div class="controls">
+          <label for="pushed">Pick a Color</label>
+          <input type="color" name="pushed" value="#FFFF00">
+        </div>
         <div class="row">
           <div data-key='69' class="col-md-1 col-md-offset-3 col-xs-1 col-xs-offset-2 key"><h1 class="text-center strong">E</h1><p class="text-center">Do</p></div>
           <div data-key='82' class="col-md-1 col-xs-1 key"><h1 class="text-center strong">R</h1><p class="text-center">Re</p></div>
@@ -84,6 +88,15 @@
 
     const keys = document.querySelectorAll('.key');
     keys.forEach(key => key.addEventListener('transitionend', removeTransition))
+    const inputs = document.querySelectorAll('.controls input');
+
+    function handleUpdate() {
+      const suffix = this.dataset.sizing || '';
+      document.documentElement.style.setProperty(`--${this.name}`, this.value + suffix);
+    }
+
+    inputs.forEach(input => input.addEventListener('change', handleUpdate));
+    inputs.forEach(input => input.addEventListener('mousemove', handleUpdate));
 
     window.addEventListener('keydown',keySound)
     window.addEventListener('mousedown',clickSound)
