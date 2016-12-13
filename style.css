@@ -1,0 +1,47 @@
+:root{
+  --pushed: yellow;
+  --off: #999;
+}
+
+
+body {
+  background-color: #111;
+}
+
+.drumkit {
+  display: flex;
+  flex: 1;
+  min-height: 100vh;
+  align-items: center;
+  justify-content: center;
+}
+
+.key {
+  border:3px solid var(--off);
+  border-radius: 5%;
+  transition: all .05s;
+  color: var(--off);
+  box-shadow:2px 3px 5px black;
+  background-color: black;
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  /* Introduced in IE 10. See http://ie.microsoft.com/testdrive/HTML5/msUserSelect/ */
+  -ms-user-select: none; user-select: none;
+  cursor: pointer;
+}
+
+.key>*{
+  pointer-events: none;
+}
+.playing {
+  transform:scale(0.93);
+  color: var(--pushed);
+  border-color: var(--pushed);
+  box-shadow: 0 0 10px var(--pushed), inset 0 0 7px var(--pushed);
+  text-shadow: 0 0 3px var(--pushed);
+}
+
+.strong{
+  font-weight: 900;
+}

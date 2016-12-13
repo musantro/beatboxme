@@ -1,0 +1,94 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Beatbox Me</title>
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+  <!-- Optional theme -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+  <!-- Latest compiled and minified JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div class="container">
+    <div class="row drumkit">
+      <div class="col-xs-12 block">
+        <h1 class="text-center">Beatbox Me</h1>
+        <div class="row">
+          <div data-key='69' class="col-md-1 col-md-offset-3 col-xs-1 col-xs-offset-2 key"><h1 class="text-center strong">E</h1><p class="text-center">Do</p></div>
+          <div data-key='82' class="col-md-1 col-xs-1 key"><h1 class="text-center strong">R</h1><p class="text-center">Re</p></div>
+          <div data-key='84' class="col-md-1 col-xs-1 key"><h1 class="text-center strong">T</h1><p class="text-center">Mi</p></div>
+          <div data-key='89' class="col-md-1 col-xs-1 key"><h1 class="text-center strong">Y</h1><p class="text-center">Fa</p></div>
+          <div data-key='85' class="col-md-1 col-xs-1 key"><h1 class="text-center strong">U</h1><p class="text-center">Sol</p></div>
+          <div data-key='73' class="col-md-1 col-xs-1 key"><h1 class="text-center strong">I</h1><p class="text-center">La</p></div>
+          <div data-key='79' class="col-md-1 col-xs-1 key"><h1 class="text-center strong">O</h1><p class="text-center">Si</p></div>
+          <div data-key='80' class="col-md-1 col-xs-1 key"><h1 class="text-center strong">P</h1><p class="text-center">Do</p></div>
+        </div>
+        <div class="row">
+          <div data-key='65' class="col-md-1 key col-md-offset-1 col-xs-4"><h1 class="text-center strong">A</h1><p class="text-center">Kick</p></div>
+          <div data-key='83' class="col-md-1 key col-xs-4"><h1 class="text-center strong">S</h1><p class="text-center">Hi-hat</p></div>
+          <div data-key='68' class="col-md-1 key col-xs-4"><h1 class="text-center strong">D</h1><p class="text-center">Snare</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <audio data-key='65' src="sounds/kick.wav"></audio>
+  <audio data-key='83' src="sounds/hihat.wav"></audio>
+  <audio data-key='68' src="sounds/snare.wav"></audio>
+  <audio class="notes" data-key='69' src="sounds/do.wav"></audio>
+  <audio class="notes" data-key='82' src="sounds/re.wav"></audio>
+  <audio class="notes" data-key='84' src="sounds/mi.wav"></audio>
+  <audio class="notes" data-key='89' src="sounds/fa.wav"></audio>
+  <audio class="notes" data-key='85' src="sounds/sol.wav"></audio>
+  <audio class="notes" data-key='73' src="sounds/la.wav"></audio>
+  <audio class="notes" data-key='79' src="sounds/si.wav"></audio>
+  <audio class="notes" data-key='80' src="sounds/kick.wav"></audio>
+
+  <script>
+    var notes = document.getElementsByClassName("notes");
+    for (var i=0; i<notes.length;i++){
+      notes[i].volume = 0.2
+    }
+
+    function keySound(e){
+      const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`);
+      const key = document.querySelector(`.key[data-key="${e.keyCode}"]`)
+      if(!audio) return;
+      audio.currentTime = 0;
+      audio.play();
+      key.classList.add('playing');
+    }
+
+    function clickSound(e){
+      e = e || window.event;
+      var target = e.target || e.srcElement
+      const audio = document.querySelector(`audio[data-key="${target.getAttribute("data-key")}"]`);
+      if(!audio) return;
+      audio.currentTime = 0;
+      audio.play();
+      target.classList.add('playing');
+    }
+
+    function removeTransition(e) {
+      if(e.propertyName !== 'transform') return;
+      this.classList.remove('playing');
+    }
+
+    const keys = document.querySelectorAll('.key');
+    keys.forEach(key => key.addEventListener('transitionend', removeTransition))
+
+    window.addEventListener('keydown',keySound)
+    window.addEventListener('mousedown',clickSound)
+    window.addEventListener('touchstart',clickSound)
+
+  </script>
+
+</body>
